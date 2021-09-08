@@ -7,7 +7,7 @@ export default {
 
   clearMocks: true,
   restoreMocks: true,
-  collectCoverage: true,
+  // collectCoverage: true,
   coverageDirectory: "coverage",
   coverageProvider: "v8",
   coverageReporters: [
@@ -16,7 +16,7 @@ export default {
   ],
   testEnvironment: "node",
   coverageThreshold: {
-    glboal: {
+    global: {
       branches: 100,
       functions: 100,
       lines: 100,
