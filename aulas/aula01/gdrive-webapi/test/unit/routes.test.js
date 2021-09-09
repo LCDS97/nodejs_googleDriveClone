@@ -99,4 +99,10 @@ describe("#Routes test suite", () => {
             expect(routes.get).toHaveBeenCalled();
         });
     });
+
+    describe('#get', () => {
+        test.skip('given method GET it should list all files downloaded', async () => {
+
+        })
+    });
 });
