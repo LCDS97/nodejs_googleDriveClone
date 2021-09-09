@@ -1,4 +1,18 @@
+import { Readable } from 'stream'
 export default class TestUtil {
 
-    // ira criar o método de readable stream
+    static generateReadableStream(data){
+        return new Readable({
+
+            objectMode: true,
+            async read(){
+                for ( const item of data){
+                    this.push(data);
+                }
+
+                this.push(null);
+
+            }
+        })
+    }
 }
