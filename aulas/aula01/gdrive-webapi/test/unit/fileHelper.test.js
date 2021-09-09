@@ -53,8 +53,8 @@ describe("#FileHelper", () => {
 
             const expectedResult = [
                 {
-                size: '163 kb',
-                birthtime: statMock.birthtime,
+                size: '168 kB',
+                lastModified: statMock.birthtime,
                 owner: mockUser,
                 file: filename
             }
