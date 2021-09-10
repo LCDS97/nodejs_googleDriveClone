@@ -1,12 +1,32 @@
 import Busboy from 'busboy';
+import { pipeline } from 'stream/promises';
+import { logger } from './logger.js'
+import fs from 'fs';
 export default class UploadHandler {
-    constructor({ io, socketId}){
+    constructor({ io, socketId, downloadsFolder}){
+        this.io = io;
+        this.socketId = socketId;
+        this.downloadsFolder = downloadsFolder;
+    }
+
+    handleFileBytes(){
 
     }
 
-    onFile(fieldname, file, filename){
+    async onFile(fieldname, file, filename){
 
+        const saveTo = `${this.downloadsFolder}/${filename}`
 
+        await pipeline(
+            // 1 passo - pegar uma readable stream!
+            file, 
+            // 2 passo - filtrar, converter, transformar dados!
+            this.handleFileBytes.apply(this, [filename]),
+            // 3 passo - saído do processo, uma writable stream!
+            fs.createWriteStream(saveTo)
+        )
+
+        logger.info(`File [${filename}] finished`)
     }
 
     registerEvents(headers, onFinish){
