@@ -2,6 +2,19 @@ import { Readable, Writable, Transform } from 'stream'
 import { jest } from '@jest/globals'
 export default class TestUtil {
 
+    static mockDateNow(mockImplementationPeriods){
+
+        const now = jest.spyOn(global.Date, global.Date.now.name)
+
+        mockImplementationPeriods.forEach(time => {
+            now.mockReturnValueOnce(time);
+        })
+    }
+
+    static getTimeFromDate(dateString){
+        return new Date(dateString).getTime()
+    }
+
     static generateReadableStream(data){
         return new Readable({
 
@@ -29,6 +42,15 @@ export default class TestUtil {
     }
 
     static generateTransformStream(onData){
+        // Outra forma de gerar o transform stream
+/*         async function *(source){
+            for await(const chunk of data){
+                yield chunk
+            }
+        } 
+*/
+
+
         return new Transform({
             objectMode: true,
             transform(chunk, enconding, cb){

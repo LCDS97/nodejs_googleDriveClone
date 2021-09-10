@@ -3,14 +3,21 @@ import { pipeline } from 'stream/promises';
 import { logger } from './logger.js'
 import fs from 'fs';
 export default class UploadHandler {
-    constructor({ io, socketId, downloadsFolder}){
+    constructor({ io, socketId, downloadsFolder, messageTimeDelay = 200}){
         this.io = io;
         this.socketId = socketId;
         this.downloadsFolder = downloadsFolder;
-        this.ON_UPLOAD_EVENT = 'file-upload'
+        this.ON_UPLOAD_EVENT = 'file-upload';
+        this.messageTimeDelay = messageTimeDelay;
+
+    }
+
+    canExecute(lastExecution){
+        return (Date.now() - lastExecution) > this.messageTimeDelay
     }
 
     handleFileBytes(filename){
+        this.lastMessageSent = Date.now();
 
         async function* handleData(source){
             let processedAlready = 0
@@ -18,7 +25,9 @@ export default class UploadHandler {
 
             for await(const chunk of source){
                 yield chunk
-
+                if(!this.canExecute(this.lastMessageSent)){
+                    continue;
+                }
                 processedAlready += chunk.length
 
                 this.io.to(this.socketId).emit(this.ON_UPLOAD_EVENT, { processedAlready, filename})
