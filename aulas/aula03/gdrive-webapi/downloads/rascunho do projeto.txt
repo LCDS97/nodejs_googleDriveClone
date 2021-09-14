@@ -1,0 +1,24 @@
+- Developer
+
+- Three things today
+
+Knowlodge, Experience, Marketing
+
+Optimezied
+
+Se focar no Trailhead
+
+
+Quando eu trabalhar nos id das change request
+necessito utilizar no parametro
+
+exemplo com método put
+
+const put = router.put('/:id, (req, res) => {
+	const id = req.params.id;
+	*Utilizando o req params para definir valor do parametro*
+	res.status(201).send({
+		id: id,
+		item: req.body
+	});
+ });

@@ -1,6 +1,7 @@
 export default class ConnectionManager {
     constructor({ apiURL }){
         this.apiURL = apiURL;
+        
     }
 
     async currentFiles(){
