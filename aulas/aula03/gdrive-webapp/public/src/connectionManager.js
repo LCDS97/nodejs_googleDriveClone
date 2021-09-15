@@ -17,6 +17,18 @@ export default class ConnectionManager {
         this.socketId = this.ioClient.id
     }
 
+    async uploadFile(file){
+        const formData = new FormData()
+        formData.append('files', file)
+
+        const response = await fetch(`${this.apiURL}?socketId=${this.socketId}`, {
+            method: 'POST',
+            body: formData
+        })
+
+        return response.json()
+    }
+
     async currentFiles(){
         const files = (await (await fetch(this.apiURL)).json())
         return files
