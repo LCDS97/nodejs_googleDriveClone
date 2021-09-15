@@ -2,6 +2,7 @@ export default class ViewManager {
     constructor(){
        this.tbody = document.getElementById('tbody');
        this.newFileBtn = document.getElementById('newFileBtn');
+       this.fileElem = document.getElementById('fileElem');
 
        this.formatter = new Intl.DateTimeFormat('pt', {
            locale: 'pt-br',
@@ -11,6 +12,10 @@ export default class ViewManager {
            hour: '2-digit',
            minute: '2-digit',
        })
+    }
+
+    configureFileBtnClick(){
+        this.newFileBtn.onclick = () => this.fileElem.click()
     }
 
     getIcon(file){
