@@ -2,7 +2,7 @@ import AppController from "./src/controller/appController.js";
 import ConnectionManager from "./src/connectionManager.js";
 import ViewManager from "./src/views/viewManager.js";
 
-const API_URL = "https://localhost:3000";
+const API_URL = "https://127.0.0.1:3000/";
 
 
 const appController = new AppController({

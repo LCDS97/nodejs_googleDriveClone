@@ -2,6 +2,15 @@ export default class ViewManager {
     constructor(){
        this.tbody = document.getElementById('tbody');
        this.newFileBtn = document.getElementById('newFileBtn');
+
+       this.formatter = new Intl.DateTimeFormat('pt', {
+           locale: 'pt-br',
+           month: 'long',
+           day: 'numeric',
+           year: 'numeric',
+           hour: '2-digit',
+           minute: '2-digit',
+       })
     }
 
     getIcon(file){
@@ -27,7 +36,7 @@ export default class ViewManager {
             <tr>
             <td>${this.makeIcon(item.file)} ${item.file}</td>
             <td>${item.owner}</td>
-            <td>${item.lastModified}</td>
+            <td>${this.formatter.format(new Date(item.lastModified))}</td>
             <td>${item.size}</td>
           </tr>
             `
